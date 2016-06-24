@@ -59,6 +59,10 @@ internal class OverlayView: UIView {
             }
         }
     }
+    
+    /// true to pass all touches through to views beneath overlay.
+    /// The controller will show the next coach mark for any touches.
+    var allowTouchPassThrough: Bool = false;
 
     /// Used to temporarily disable the tap, for a given coachmark.
     var disableOverlayTap: Bool = false
@@ -215,6 +219,14 @@ internal class OverlayView: UIView {
     }
 
     override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+
+        // inform the manager that a touch has been recorded,
+        // but pass the hit down the responder chain anyway
+        if self.allowTouchPassThrough {
+            self.handleSingleTap(nil)
+            return nil;
+        }
+
         let hitView = super.hitTest(point, withEvent: event)
 
         if hitView == self {
