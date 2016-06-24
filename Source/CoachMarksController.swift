@@ -99,6 +99,18 @@ public class CoachMarksController: UIViewController, OverlayViewDelegate {
             self.overlayView.allowOverlayTap = newValue
         }
     }
+    
+    /// true to pass all touches through to views beneath overlay.
+    /// The controller will show the next coach mark for any touches.
+    public var allowTouchPassThrough: Bool {
+        get {
+            return self.overlayView.allowTouchPassThrough
+        }
+        
+        set {
+            self.overlayView.allowTouchPassThrough = newValue
+        }
+    }
 
     /// The view holding the "Skip" control
     public var skipView: CoachMarkSkipView? {
