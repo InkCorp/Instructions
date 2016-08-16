@@ -264,7 +264,7 @@ public class CoachMarksController: UIViewController, OverlayViewDelegate {
     ///
     /// - Parameters view: the view around which create the cutoutPath
     /// - Parameters bezierPathBlock: a block customizing the cutoutPath
-    public func coachMarkForView(_ view: UIView? = nil, bezierPathBlock: ((frame: CGRect) -> UIBezierPath)? = nil) -> CoachMark {
+    public func coachMarkForView(_ view: UIView? = nil, bezierPathBlock: ((_ frame: CGRect) -> UIBezierPath)? = nil) -> CoachMark {
         return self.coachMarkForView(view, pointOfInterest: nil, bezierPathBlock: bezierPathBlock)
     }
 
@@ -279,7 +279,7 @@ public class CoachMarksController: UIViewController, OverlayViewDelegate {
     /// - Parameters view: the view around which create the cutoutPath
     /// - Parameters pointOfInterest: the point of interest toward which the arrow should point
     /// - Parameters bezierPathBlock: a block customizing the cutoutPath
-    public func coachMarkForView(_ view: UIView? = nil, pointOfInterest: CGPoint?, bezierPathBlock: ((frame: CGRect) -> UIBezierPath)? = nil) -> CoachMark {
+    public func coachMarkForView(_ view: UIView? = nil, pointOfInterest: CGPoint?, bezierPathBlock: ((_ frame: CGRect) -> UIBezierPath)? = nil) -> CoachMark {
         var coachMark = CoachMark()
 
         guard let view = view else {
@@ -305,7 +305,7 @@ public class CoachMarksController: UIViewController, OverlayViewDelegate {
     /// - Parameters view: the view around which create the cutoutPath
     /// - Parameters pointOfInterest: the point of interest toward which the arrow should point
     /// - Parameters bezierPathBlock: a block customizing the cutoutPath
-    public func updateCurrentCoachMarkForView(_ view: UIView? = nil, pointOfInterest: CGPoint? = nil, bezierPathBlock: ((frame: CGRect) -> UIBezierPath)? = nil) -> Void {
+    public func updateCurrentCoachMarkForView(_ view: UIView? = nil, pointOfInterest: CGPoint? = nil, bezierPathBlock: ((_ frame: CGRect) -> UIBezierPath)? = nil) -> Void {
         if !self.paused || self.currentCoachMark == nil {
             print("updateCurrentCoachMarkForView: Something is wrong, did you called updateCurrentCoachMarkForView without pausing the controller first?")
             return
@@ -326,7 +326,7 @@ public class CoachMarksController: UIViewController, OverlayViewDelegate {
     /// - Parameters view: the view around which create the cutoutPath
     /// - Parameters pointOfInterest: the point of interest toward which the arrow should point
     /// - Parameters bezierPathBlock: a block customizing the cutoutPath
-    public func updateCoachMark(_ coachMark: inout CoachMark, forView view: UIView? = nil, pointOfInterest: CGPoint?, bezierPathBlock: ((frame: CGRect) -> UIBezierPath)? = nil) -> Void {
+    public func updateCoachMark(_ coachMark: inout CoachMark, forView view: UIView? = nil, pointOfInterest: CGPoint?, bezierPathBlock: ((_ frame: CGRect) -> UIBezierPath)? = nil) -> Void {
 
         guard let view = view else {
             return
@@ -337,7 +337,7 @@ public class CoachMarksController: UIViewController, OverlayViewDelegate {
         var bezierPath: UIBezierPath
 
         if let bezierPathBlock = bezierPathBlock {
-            bezierPath = bezierPathBlock(frame: convertedFrame)
+            bezierPath = bezierPathBlock(convertedFrame)
         } else {
             bezierPath = UIBezierPath(roundedRect: convertedFrame.insetBy(dx: -4, dy: -4), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 4, height: 4))
         }
